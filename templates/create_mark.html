@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form method="post">
+        <select name="id_person">
+            <option selected>Выберите ученика</option>
+                {% for p in persons %}
+                    <option value={{p.id}}>{{p.name}}</option>
+                {% endfor %}
+        </select>
+        <select name="id_exercise">
+            <option selected>Выберите ученика</option>
+                {% for e in exercises %}
+                    <option value={{e.id}}>{{e.exercise_name}}</option>
+                {% endfor %}
+        </select>
+        <textarea name="score" class="form-control"></textarea>><br>
+        <button>Отправить</button>
+    </form>
+
+</body>
+</html>

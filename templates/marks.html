@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% for m in marks %}
+        <p>№:{{ m[0].id }}| Ученик: {{ m[1].name }}| Упражнение: {{ m[2].exercise_name }}| количество повторений: {{ m[0].score }}</p>
+        <a href="/marks/{{m[0].id}}" class="btn btn-warning">Детальнее</a>
+    {% endfor %}
+
+</body>
+</html>
