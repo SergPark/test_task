@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -34,14 +34,6 @@ def read_marks_page():
     return render_template("marks.html", marks=res)
 
 
-@app.route("/marks/<int:id>")
-def read_mark_detail_page(id):
-    mark = Mark.query.get(id)
-    person = Person.query.get(mark.id_person)
-    exercise = Exercise.query.get(mark.id_exercise)
-    return render_template("detail_mark.html", mark=mark, person=person, exercise=exercise)
-
-
 @app.route("/marks/<int:id>/delete_mark", methods=["POST", "GET"])
 def delete_mark_page(id):
     mark = Mark.query.get_or_404(id)
@@ -60,8 +52,8 @@ def create_mark_page():
     if request.method == "POST":
         id_person = request.form["id_person"]
         id_exercise = request.form["id_exercise"]
-        score_value = request.form["score"]
-        new_mark = Mark(score=score_value, id_person=id_person, id_exercise=id_exercise)
+        score = request.form["score"]
+        new_mark = Mark(score=score, id_person=id_person, id_exercise=id_exercise)
         try:
             db.session.add(new_mark)
             db.session.commit()
@@ -75,11 +67,26 @@ def create_mark_page():
 
 
 @app.route("/marks/<int:id>/update_mark", methods=["POST", "GET"])
-def update_mark_page():
-    pass
+def update_mark_page(id):
+    mark = Mark.query.get(id)
+    persons_poll = Person.query.all()
+    exercises_poll = Exercise.query.all()
+    if request.method == "POST":
+        mark.id_person = request.form["id_person"]
+        mark.id_exercise = request.form["id_exercise"]
+        mark.score = request.form["score"]
+        try:
+            db.session.commit()
+            return redirect("/marks")
+        except:
+            return "При добавлении статьи произошла ошибка"
+    else:
+        return render_template(
+            "update_mark.html", persons=persons_poll, exercises=exercises_poll
+        )
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
     with app.app_context():
         db.create_all()
+    app.run(debug=True)

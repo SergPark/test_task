@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Записи</title>
+    <a href="/marks">Все нормативы</a>
+    <a href="/create_mark">Зафиксировать норматив</a>
 </head>
 
 <body>
     {% for m in marks %}
-        <p>№:{{ m[0].id }}| Ученик: {{ m[1].name }}| Упражнение: {{ m[2].exercise_name }}| количество повторений: {{ m[0].score }}</p>
-        <a href="/marks/{{m[0].id}}" class="btn btn-warning">Детальнее</a>
-    {% endfor %}
+    <p>
+        Ученик: {{ m[1].name }} | Упражнение: {{ m[2].exercise_name }} | количество повторений: {{ m[0].score }} |
+        <a href="/marks/{{m[0].id}}/delete_mark">Удалить</a>
+        <a href="/marks/{{m[0].id}}/update_mark">Редактировать</a>
+    </p>
 
+    {% endfor %}
 </body>
 </html>
+
+

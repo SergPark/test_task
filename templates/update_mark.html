@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обновление записи</title>
+    <a href="/marks">Все нормативы</a>
+    <a href="/create_mark">Зафиксировать норматив</a>
+</head>
+
+<body>
+
+    <form method="post">
+        <select name="id_person">
+            {% for p in persons %}
+                <option value={{p.id}}>{{p.name}}</option>
+            {% endfor %}
+        </select>
+        <select name="id_exercise">
+            {% for e in exercises %}
+                <option value={{e.id}}>{{e.exercise_name}}</option>
+            {% endfor %}
+        </select>
+        <input name="score" class="form-control"><br>
+        <button>Отправить</button>
+    </form>
+
+</body>
+</html>
