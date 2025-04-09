@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ class Mark(db.Model):
     id_person = db.Column(db.ForeignKey("person.id"))
     id_exercise = db.Column(db.ForeignKey("exercise.id"))
     score = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 @app.route("/")
