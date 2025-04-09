@@ -9,15 +9,12 @@
 </head>
 
 <body>
-    {% if marks|length > 0 %}
-        {% for m in marks %}
+    {% for m in marks %}
         <p>
             Ученик: {{ m[1].name }} | Упражнение: {{ m[2].exercise_name }} | Количество повторений: {{ m[0].score }} | Дата: {{ m[0].date.date() }} |
             <a href="/marks/{{m[0].id}}/delete_mark">Удалить</a>
             <a href="/marks/{{m[0].id}}/update_mark">Редактировать</a>
         </p>
-    {% else %}
-        <p>Не зафиксированно ни одного норматива></p>
     {% endfor %}
 </body>
 </html>
